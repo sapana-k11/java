@@ -1,0 +1,225 @@
+package com.nist.banking;
+
+public class Customer {
+String name,address;
+long contactNumber,accountNumber;
+double balance;
+
+public Customer(String name, String address,long contactNumber,double balance, long accountNumber) {
+	this.name=name;
+	this.address=address;
+	this.contactNumber=contactNumber;
+	this.balance=balance;
+	this.accountNumber=accountNumber;
+}
+
+public void deposit(double amount) {balance=balance+amount;}
+public void withdraw(double amount) {balance = balance-amount;}
+}
+
+
+
+
+package com.nist.banking;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Bank {
+	long accountNumber=100;
+	ArrayList<Customer> customerList=new ArrayList<>();
+	Scanner scInt=new Scanner(System.in);
+	Scanner scString=new Scanner(System.in);
+	Scanner scLong=new Scanner(System.in);
+	Scanner scDouble=new Scanner(System.in);
+
+public void menu() {
+	System.out.println("Welcome to Nist Bank");
+	System.out.println("1.Create Account");
+	System.out.println("2.View Details");
+	System.out.println("3.Deposit");
+	System.out.println("4.Withdraw");
+	int userChoice=scInt.nextInt();
+	switch(userChoice) {
+	case 1:
+		createAccount();
+		break;
+	case 2:
+		viewDetails();
+		break;
+	case 3:
+		deposit();
+		break;
+	case 4:
+		withdraw();
+		break;
+		
+	default:
+		System.out.println("Invalid choice");
+	}
+	menu();
+};
+
+public void createAccount() {
+	System.out.println("Enter your name");
+	String name=scString.nextLine();
+	
+	System.out.println("Enter your address");
+	String address=scString.nextLine();
+	
+	System.out.println("Enter your contact number");
+	long contact=scLong.nextLong();
+	
+	accountNumber++;
+	
+	Customer c1= new Customer(name,address,contact,0.0,accountNumber);
+	customerList.add(c1);
+	System.out.println("Account successfully created: Your account number is"+ accountNumber);
+}
+
+public void viewDetails(){
+	System.out.println("Enter the account number you want to view");
+	long accNo=scLong.nextLong();
+	boolean found=false;
+	for(Customer c : customerList)
+	{
+		if(accNo==c.accountNumber) {
+			System.out.println("Name is "+ c.name);
+			System.out.println("Account number is "+ c.accountNumber);
+			System.out.println("Address is "+ c.address);
+			System.out.println("Balance is "+ c.balance);
+			System.out.println("Contact number is "+ c.contactNumber);
+			System.out.println("====================");
+			found=true;
+		}
+	}
+	if(!found) {
+		System.out.println("Account number is not in the list . Please create your account");
+	
+	}
+}
+
+
+public void deposit() {
+	System.out.println("Enter the account number you want to deposit");
+	long accNo=scLong.nextLong();
+	boolean found=false;
+	for(Customer c : customerList)
+	{
+		if(accNo==c.accountNumber) {
+			System.out.println("Enter the number you want to deposit");
+			double amount= scDouble.nextDouble();
+			c.deposit(amount);
+			System.out.println("Amount successfully deposited");
+			found=true;
+		}
+	}
+	if(!found) {
+		System.out.println("Account number is not in the list . Please create your account");
+	
+	}
+}
+
+
+public void withdraw() {
+	System.out.println("Enter the account number you want to withdraw");
+	long accNo=scLong.nextLong();
+	boolean found=false;
+	for(Customer c : customerList)
+	{
+		if(accNo==c.accountNumber) {
+			System.out.println("Enter the number you want to withdraw");
+			double amount= scDouble.nextDouble();
+			c.deposit(amount);
+			System.out.println("Amount successfully withdrawn");
+			found=true;
+		}
+	}
+	if(!found) {
+		System.out.println("Account number is not in the list . Please create your account");
+	
+	}
+}
+
+public static void main(String[] args) {
+	Bank bank = new Bank();
+	bank.menu();
+}
+}
+
+
+
+
+output:
+Welcome to Nist Bank
+1.Create Account
+2.View Details
+3.Deposit
+4.Withdraw
+1
+Enter your name
+krishma
+Enter your address
+banepa
+Enter your contact number
+24523
+Account successfully created: Your account number is101
+Welcome to Nist Bank
+1.Create Account
+2.View Details
+3.Deposit
+4.Withdraw
+2
+Enter the account number you want to view
+24523
+Account number is not in the list . Please create your account
+Welcome to Nist Bank
+1.Create Account
+2.View Details
+3.Deposit
+4.Withdraw
+2
+Enter the account number you want to view
+101
+Name is krishma
+Account number is 101
+Address is banepa
+Balance is 0.0
+Contact number is 24523
+====================
+Welcome to Nist Bank
+1.Create Account
+2.View Details
+3.Deposit
+4.Withdraw
+3
+Enter the account number you want to deposit
+1000
+Account number is not in the list . Please create your account
+Welcome to Nist Bank
+1.Create Account
+2.View Details
+3.Deposit
+4.Withdraw
+3
+Enter the account number you want to deposit
+101
+Enter the number you want to deposit
+1000
+Amount successfully deposited
+Welcome to Nist Bank
+1.Create Account
+2.View Details
+3.Deposit
+4.Withdraw
+4
+Enter the account number you want to withdraw
+101
+Enter the number you want to withdraw
+500
+Amount successfully withdrawn
+Welcome to Nist Bank
+1.Create Account
+2.View Details
+3.Deposit
+4.Withdraw
